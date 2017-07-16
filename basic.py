@@ -1,0 +1,24 @@
+import time
+import random
+
+bb8.SetDefault()
+bb8.SetBrightness(255)
+
+nextSound = time.time()
+nextLight = time.time()
+
+while running():
+    t = time.time()
+    
+    if t > nextLight:
+        nextLight = t + random.randint(1, 10)
+        bb8.HoloProjector.SetColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    
+    #if t > nextSound:
+    #    nextSound = t + random.randint(10, 20)
+    #    bb8.Sound.Play("Generic")
+    
+    #if r2.BB8.JustConnected:
+    #    r2.Sound.Play("Happy")
+    #elif r2.BB8.JustDisconnected:
+    #    r2.Sound.Play("Sad")
