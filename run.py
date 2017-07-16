@@ -26,7 +26,7 @@ def handler(signal, frame):
 signal.signal(signal.SIGTERM, handler)
 
 def running():
-    #bb8.Update()
+    bb8.Network.Update()
     #bb8.BB8.Update()
     #r2.MagicPanel.Ping()
     #r2.Head.Ping()

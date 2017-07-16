@@ -17,9 +17,11 @@ class Network:
         self.messages = { "R2D2": [], "BB8": [] }
         self.port = 5000
         atexit.register(self.Exit)
+        self.changed = []
 
     def Exit(self):
-        self.Send("R2D2", "bye")
+        for k in self.IPs.keys():
+            self.Send(k, "bye")
         self.outgoing.close()
         if self.incoming != None:
             self.incoming.close()
@@ -30,44 +32,55 @@ class Network:
         if t > self.lastUpdateTime + 1:
             ip = None
             try:
-                ip = os.popen("ip addr show wlan0").read().split("inet ")[1].split("/")[0]# + " " + os.popen("iwgetid -r").read()
-            except:
+                ip = os.popen("ip addr show wlan0").read().split("inet ")[1].split("/")[0]
+            except IndexError:
                 try:
                     ip = os.popen("ip addr show eth0").read().split("inet ")[1].split("/")[0]
-                except:
+                except IndexError:
                     ip = None
             if self.IP != ip:
                 self.IP = ip
                 if self.incoming != None:
                     self.incoming.close()
                 if self.IP != None:
-                    print "Opening port", self.port, "on", self.IP
+                    logging.info("Opening port " + str(self.port) + " on " + self.IP)
                     self.incoming = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                     self.incoming.bind((self.IP, self.port))
-                    for i in range(1, 255):
-                        self.outgoing.sendto("hi", ("192.168.0." + str(i), self.port))
+                    broadcast = ".".join(os.popen("ifconfig | grep Bcast").read().split("Bcast:")[1].split(" ")[0].split(".")[:3] + ["0"])
+                    os.popen("sudo arp-scan " + broadcast + "/24 | tail -n +3 | head -n -3 | cut -d'	' -f1 | awk '{ printf \"echo -n hi > /dev/udp/%s/" + str(self.port) + "\\n\", $1 }' | bash")
+                    #for i in range(1, 255):
+                    #    self.outgoing.sendto("hi", ("192.168.0." + str(i), self.port))
                 else:
                     self.incoming = None
+
+        self.changed = []
 
         if self.incoming != None:
             try:
                 data, (address, port) = self.incoming.recvfrom(1024, socket.MSG_DONTWAIT)
                 if address != self.IP:
+                    #print "IP", address
                     mac = os.popen("arp -na | grep " + address + " | cut -d' ' -f4").read().split("\n")[0]
+                    #print "MAC", mac
                     if mac in self.MACs:
                         droid = self.MACs[mac]
+                        logging.info("Received " + data + " from " + droid)
                         if self.IPs[droid] != address:
-                            print "Discovered", droid
+                            logging.info("Discovered " + droid)
                             self.IPs[droid] = address
                         if data == "hi":
-                            self.Send(droid, "return")
+                            self.Send(droid, "hello")
+                            self.changed.append(droid)
+                        elif data == "hello":
+                            self.changed.append(droid)
                         elif data == "bye":
-                            print "Lost", droid
+                            logging.info("Lost " + droid)
                             self.IPs[droid] = None
+                            self.changed.append(droid)
                         else:
                             self.messages[droid].append(data)
                     else:
-                        print "Received", data, "from", address
+                        logging.info("Received " + data + " from " + address)
             except socket.error:
                 pass
 
@@ -82,3 +95,9 @@ class Network:
         ip = self.IPs[droid]
         if ip != None:
             self.outgoing.sendto(message, (ip, self.port))
+
+    def Changed(self, droid):
+        return droid in self.changed
+
+    def IsConnected(self, droid):
+        return self.IPs[droid] != None

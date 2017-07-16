@@ -16,7 +16,7 @@ sudo apt-get autoremove
 Install some software that will be needed:
 ```bash
 sudo pip install adafruit-mcp3008 adafruit-pca9685
-sudo apt-get install screen i2c-tools joystick python-pygame python-serial python-bluetooth pi-bluetooth omxplayer sysstat nmap
+sudo apt-get install screen i2c-tools joystick python-pygame python-serial python-bluetooth pi-bluetooth omxplayer sysstat nmap arp-scan
 sudo pip install rpi_ws281x
 ```
 

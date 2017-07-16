@@ -17,8 +17,9 @@ while running():
     #if t > nextSound:
     #    nextSound = t + random.randint(10, 20)
     #    bb8.Sound.Play("Generic")
-    
-    #if r2.BB8.JustConnected:
-    #    r2.Sound.Play("Happy")
-    #elif r2.BB8.JustDisconnected:
-    #    r2.Sound.Play("Sad")
+
+    #if bb8.Network.Changed("R2D2"):
+    #    if bb8.Network.IsConnected("R2D2"):
+    #        r2.Sound.Play("Happy")
+    #    else:
+    #        r2.Sound.Play("Sad")

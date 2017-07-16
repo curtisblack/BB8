@@ -4,6 +4,7 @@ import logging
 import RPi.GPIO as GPIO
 from LED import *
 #from Sound import *
+from Network import *
 from Eye import *
 from LogicDisplay import *
 from ProcessStateIndicator import *
@@ -16,6 +17,8 @@ class BB8:
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         atexit.register(self.Exit)
+
+        self.Network = Network()
 
         self.strip = Adafruit_NeoPixel(3 + 3 + 3 + 7, 13, channel=1)
         self.strip.begin()
