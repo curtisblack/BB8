@@ -46,5 +46,18 @@ class BB8:
         self.FrontBottomLogicDisplay.SetDefault()
         self.SideLogicDisplay.SetDefault()
         self.HoloProjector.SetDefault()
-        self.strip.show()
 
+    def SetR2D2(self):
+        self.Eye.SetDefault()
+        self.ProcessStateIndicator.SetR2D2()
+        self.FrontTopLogicDisplay.SetR2D2()
+        self.FrontBottomLogicDisplay.SetR2D2()
+        self.SideLogicDisplay.SetR2D2()
+        self.HoloProjector.SetDefault()
+
+    def Update(self):
+        self.Network.Update()
+        self.ProcessStateIndicator.Update()
+        self.FrontTopLogicDisplay.Update()
+        self.FrontBottomLogicDisplay.Update()
+        self.SideLogicDisplay.Update()

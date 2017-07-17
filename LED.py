@@ -7,14 +7,14 @@ class LED:
         setup(self.pin, OUT)
         self.pwm = PWM(self.pin, 1000)
         self.pwm.start(0)
-        self.value = 0
-        self.brightness = 255
+        self.Value = 0
+        self.Brightness = 255
 
     def Update(self):
-        self.pwm.ChangeDutyCycle(100 * self.value * self.brightness / (255 * 255))
+        self.pwm.ChangeDutyCycle(100 * self.Value * self.Brightness / (255 * 255))
 
     def SetValue(self, value):
-        self.value = value
+        self.Value = value
         self.Update()
 
     def Off(self):
@@ -24,10 +24,10 @@ class LED:
         self.SetValue(255)
 
     def Toggle(self):
-        self.value = 255 if self.value < 127 else 0
+        self.Value = 255 if self.Value < 127 else 0
         self.Update()
 
     def SetBrightness(self, brightness):
-        self.brightness = brightness
+        self.Brightness = brightness
         self.Update()
         
