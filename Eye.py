@@ -2,12 +2,12 @@ from LED import LED
 
 class Eye:
     def __init__(self):
-        self.LED1 = LED(21)
-        self.LED2 = LED(20)
-        self.LED3 = LED(16)
-        self.LED4 = LED(12)
-        self.LED5 = LED(26)
-        self.LED6 = LED(19)
+        self.LED1 = LED(17)
+        self.LED2 = LED(27)
+        self.LED3 = LED(22)
+        self.LED4 = LED(23)
+        self.LED5 = LED(24)
+        self.LED6 = LED(25)
 
     def SetBrightness(self, brightness):
         self.LED1.SetBrightness(brightness)

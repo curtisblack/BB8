@@ -9,6 +9,10 @@ import pygame
 import traceback
 from BB8 import BB8
 
+if os.geteuid() != 0:
+    print "This script must be run with sudo."
+    sys.exit(1)
+
 procs = os.popen("sudo ps ax | grep python").read().split("\n")
 for proc in procs:
     if "run.py" in proc:

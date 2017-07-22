@@ -23,7 +23,7 @@ class FrontTopLogicDisplay(LogicDisplay):
         self.nextUpdate = 0
 
     def SetDefault(self):
-        self.SetColor(100, 100, 100)
+        self.SetColor(127, 127, 127)
         self.State = "default"
 
     def SetR2D2(self):
@@ -35,7 +35,7 @@ class FrontTopLogicDisplay(LogicDisplay):
             t = time.time()
             if t > self.nextUpdate:
                 self.nextUpdate = t + 0.1
-                choices = [(0, 0, 255), (255, 255, 255)]
+                choices = [(0, 25, 100), (100, 100, 100)]
                 colors = [choices[random.randint(0, len(choices) - 1)] for i in range(3)]
                 self.SetColors(colors)
 
@@ -58,7 +58,7 @@ class FrontBottomLogicDisplay(LogicDisplay):
             t = time.time()
             if t > self.nextUpdate:
                 self.nextUpdate = t + 0.1#random.random() / 10
-                choices = [(0, 0, 255), (255, 255, 255)]
+                choices = [(0, 25, 100), (100, 100, 100)]
                 colors = [choices[random.randint(0, len(choices) - 1)] for i in range(3)]
                 self.SetColors(colors)
 
@@ -69,7 +69,7 @@ class SideLogicDisplay(LogicDisplay):
         self.nextUpdate = 0
 
     def SetDefault(self):
-         self.SetColor(0, 50, 120)
+         self.SetColor(0, 64, 127)
          self.State = "default"
 
     def SetR2D2(self):
@@ -81,6 +81,6 @@ class SideLogicDisplay(LogicDisplay):
             t = time.time()
             if t > self.nextUpdate:
                 self.nextUpdate = t + 0.1#random.random() / 10
-                choices = [(255, 0, 0), (0, 255, 0), (255, 255, 0)]
+                choices = [(100, 0, 0), (0, 100, 0), (100, 100, 0)]
                 colors = [choices[random.randint(0, len(choices) - 1)] for i in range(3)]
                 self.SetColors(colors)

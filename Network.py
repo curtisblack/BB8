@@ -38,10 +38,7 @@ class Network:
             try:
                 ip = os.popen("ip addr show wlan0").read().split("inet ")[1].split("/")[0]
             except IndexError:
-                try:
-                    ip = os.popen("ip addr show eth0").read().split("inet ")[1].split("/")[0]
-                except IndexError:
-                    ip = None
+                ip = None
             if self.IP != ip:
                 self.IP = ip
                 if self.incoming != None:

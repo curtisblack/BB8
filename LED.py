@@ -14,7 +14,7 @@ class LED:
         self.pwm.ChangeDutyCycle(100 * self.Value * self.Brightness / (255 * 255))
 
     def SetValue(self, value):
-        self.Value = value
+        self.Value = max(0, min(value, 255))
         self.Update()
 
     def Off(self):
