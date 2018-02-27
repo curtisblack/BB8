@@ -14,7 +14,7 @@ from neopixel import *
 
 class BB8:
     def __init__(self):
-        logging.basicConfig(format="%(levelname)s (%(asctime)s): %(message)s", datefmt="%I:%M:%S %p", level=logging.WARNING)
+        logging.basicConfig(format="%(levelname)s (%(asctime)s): %(message)s", datefmt="%I:%M:%S %p", level=logging.WARNING, filename="/var/tmp/BB8.log")
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         #atexit.register(self.Exit)
