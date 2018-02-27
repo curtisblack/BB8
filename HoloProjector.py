@@ -19,7 +19,6 @@ class HoloProjector:
     def SetDefault(self):
         self.SetColor(0, 0, 0)
         self.State = "default"
-        self.bb8.Sound.Hologram.stop()
 
     def SetMessage(self):
         self.State = "message"

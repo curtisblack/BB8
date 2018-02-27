@@ -13,8 +13,8 @@ class Sound(object):
         self.file = None
         self.current = 0
         self.start = 0
-        self.Volume = 50
         self.Hologram = mixer.Sound(self.directory + "/Hologram/314.wav")
+        self.Volume = 50
 
     #@property
     def get_Volume(self):
@@ -23,6 +23,7 @@ class Sound(object):
     #@Volume.setter
     def set_Volume(self, value):
         volume = max(0, min(100, value))
+        self.Hologram.set_volume(value / 100.0)
         mixer.music.set_volume(value / 100.0)
 
     Volume = property(get_Volume, set_Volume)
@@ -33,7 +34,7 @@ class Sound(object):
         self.file = wave.open(file, 'r')
         self.current = 0
         mixer.music.load(file)
-        mixer.music.set_volume(1)
+        #mixer.music.set_volume(1)
         mixer.music.play()
         self.start = time.time()
 

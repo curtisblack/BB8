@@ -16,20 +16,21 @@ class StatusDisplay:
         self.font = ImageFont.load_default()
 
         self.BB8 = bb8
-        self.lastIP = None
+        self.showIP = True
         self.lastUpdateTime = 0
 
     def Update(self):
         t = time.time()
-        if t > self.lastUpdateTime + 1:
+        if t > self.lastUpdateTime + 2:
             #self.draw.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
             ip = ("IP: " + self.BB8.Network.IP) if self.BB8.Network.IP else "No Network"
-            if self.lastIP != ip:
-                self.draw.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
-                self.draw.text((0, 0), ip, font=self.font, fill=255)
-                self.display.image(self.image)
-                self.display.display()
-                self.lastIP = ip
+            ssid = ("SSID: " + self.BB8.Network.SSID) if self.BB8.Network.SSID else "No Network"
+            #if self.lastIP != ip:
+            self.draw.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
+            self.draw.text((0, 0), ip if self.showIP else ssid, font=self.font, fill=255)
+            self.display.image(self.image)
+            self.display.display()
+            self.showIP = not self.showIP
             #cpu = "CPU: " + os.popen("top -bn1 | tail -n +8 | awk '{ SUM += $(NF-3) } END { printf \"%.0f%%\", SUM }'").read()
             #mem = "Mem: " + os.popen("free -m | awk 'NR==2{printf \"%s/%s MB %.0f%%\", $3,$2,$3*100/$2 }'").read()
             #disk = "Disk: " + os.popen("df -h | awk '$NF==\"/\"{printf \"%.2g/%d GB %s\", $3,$2,$5}'").read()

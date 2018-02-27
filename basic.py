@@ -16,7 +16,8 @@ while running():
         if random.randint(0, 5) == 0:
             bb8.HoloProjector.SetMessage()
         else:
-            bb8.HoloProjector.SetColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            bb8.HoloProjector.SetDefault()
+            #bb8.HoloProjector.SetColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
     
     if t > nextSound:
         nextSound = t + random.randint(10, 20)
